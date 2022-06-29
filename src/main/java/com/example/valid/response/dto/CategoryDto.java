@@ -16,6 +16,10 @@ public class CategoryDto {
     private String category;
 
 
-
+    //entity의 값을 바로 dto로 반환하기시키기 위해
+    public CategoryDto(CategoryEntity categoryEntity){
+        this.categoryId = categoryEntity.getCategoryId();
+        this.category = categoryEntity.getCategory();
+    }
 
 }

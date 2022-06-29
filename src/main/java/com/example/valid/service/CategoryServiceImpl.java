@@ -25,20 +25,17 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public CategoryDto createCategory(CategoryDto dto) {
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setCategory(dto.getCategory());
+        //set사용하지 않고 build를 사용
+        CategoryEntity categoryEntity = CategoryEntity.builder()
+                        .category(dto.getCategory()).build();
         categoryEntity = this.categoryRepository.save(categoryEntity);
 
-
-        return new CategoryDto(
-                categoryEntity.getCategoryId(),
-                categoryEntity.getCategory()
-        );
+        return new CategoryDto(categoryEntity);
     }
 
     @Override
     public Collection<CategoryDto> readAllCategory() {
-        List<CategoryDto> categoryDtoList= new ArrayList<>();
+        List<CategoryDto> categoryDtoList =new ArrayList<>();
         this.categoryRepository.findAll().forEach(categoryEntity ->
                 categoryDtoList.add(
                         new CategoryDto(

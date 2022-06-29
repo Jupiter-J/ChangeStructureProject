@@ -24,8 +24,8 @@ public class ResponseModel {
     @Builder.Default
     private Map<String, Object> data = new HashMap<>();
 
-    public void addData(String name, Object data) {
-        this.data.put(name, data);
+    public void addData(String message, Object data) {
+        this.data.put(message, data);
     }
 
 }

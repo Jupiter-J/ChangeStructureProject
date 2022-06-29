@@ -1,6 +1,7 @@
 package com.example.valid.controller;
 
 
+import com.example.valid.response.ResponseModel;
 import com.example.valid.response.dto.CategoryDto;
 import com.example.valid.service.CategoryServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,11 @@ public class CategoryController {
 
 
     @PostMapping
-    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto dto){
-        //파라미터로 받는다 -> valid 어노테이션 검색
-        return ResponseEntity.ok(categoryServiceImpl.createCategory(dto));
+    public ResponseModel createCategory(@RequestBody CategoryDto dto){
+        CategoryDto categoryDto = categoryServiceImpl.createCategory(dto);
+        ResponseModel responseModel = ResponseModel.builder().build();
+        responseModel.addData("categoryDto",categoryDto);
+        return responseModel;
     }
 
     @GetMapping
@@ -37,8 +40,7 @@ public class CategoryController {
 
         if (categoryDto == null)
             return ResponseEntity
-                    .notFound()
-                    .build();
+                    .notFound().build();
         else
             return ResponseEntity.ok(categoryDto);
     }
